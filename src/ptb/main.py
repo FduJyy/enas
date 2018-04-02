@@ -17,10 +17,14 @@ from src.utils import DEFINE_boolean
 from src.utils import DEFINE_float
 from src.utils import DEFINE_integer
 from src.utils import DEFINE_string
-from src.utils import print_user_flags
 
 from src.ptb.ptb_enas_child import PTBEnasChild
 from src.ptb.ptb_enas_controller import PTBEnasController
+
+try:
+    xrange          # Python 2
+except NameError:
+    xrange = range  # Python 3
 
 flags = tf.app.flags
 FLAGS = flags.FLAGS
@@ -390,4 +394,3 @@ def main(_):
 
 if __name__ == "__main__":
   tf.app.run()
-
