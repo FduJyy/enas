@@ -14,10 +14,10 @@ def _read_data(data_path, train_files):
   for file_name in train_files:
     print(file_name)
     full_name = os.path.join(data_path, file_name)
-    with open(full_name) as finp:
-      data = pickle.load(finp)
-      batch_images = data["data"].astype(np.float32) / 255.0
-      batch_labels = np.array(data["labels"], dtype=np.int32)
+    with open(full_name, 'rb') as finp:
+      data = pickle.load(finp, encoding='bytes')
+      batch_images = data[b"data"].astype(np.float32) / 255.0
+      batch_labels = np.array(data[b"labels"], dtype=np.int32)
       images.append(batch_images)
       labels.append(batch_labels)
   images = np.concatenate(images, axis=0)
