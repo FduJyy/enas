@@ -1,7 +1,3 @@
-import sys
-import os
-import time
-
 import numpy as np
 import tensorflow as tf
 
@@ -9,7 +5,11 @@ from src.controller import Controller
 from src.utils import get_train_ops
 from src.common_ops import stack_lstm
 
-from tensorflow.python.training import moving_averages
+try:
+    xrange          # Python 2
+except NameError:
+    xrange = range  # Python 3
+
 
 class GeneralController(Controller):
   def __init__(self,
@@ -43,8 +43,8 @@ class GeneralController(Controller):
                *args,
                **kwargs):
 
-    print "-" * 80
-    print "Building ConvController"
+    print("-" * 80)
+    print("Building ConvController")
 
     self.search_for = search_for
     self.search_whole_channels = search_whole_channels
@@ -53,7 +53,7 @@ class GeneralController(Controller):
     self.out_filters = out_filters
 
     self.lstm_size = lstm_size
-    self.lstm_num_layers = lstm_num_layers 
+    self.lstm_num_layers = lstm_num_layers
     self.lstm_keep_prob = lstm_keep_prob
     self.tanh_constant = tanh_constant
     self.temperature = temperature
@@ -105,18 +105,18 @@ class GeneralController(Controller):
           for branch_id in xrange(self.num_branches):
             with tf.variable_scope("branch_{}".format(branch_id)):
               self.w_emb["start"].append(tf.get_variable(
-                "w_start", [self.out_filters, self.lstm_size]));
+                "w_start", [self.out_filters, self.lstm_size]))
               self.w_emb["count"].append(tf.get_variable(
-                "w_count", [self.out_filters - 1, self.lstm_size]));
+                "w_count", [self.out_filters - 1, self.lstm_size]))
 
         self.w_soft = {"start": [], "count": []}
         with tf.variable_scope("softmax"):
           for branch_id in xrange(self.num_branches):
             with tf.variable_scope("branch_{}".format(branch_id)):
               self.w_soft["start"].append(tf.get_variable(
-                "w_start", [self.lstm_size, self.out_filters]));
+                "w_start", [self.lstm_size, self.out_filters]))
               self.w_soft["count"].append(tf.get_variable(
-                "w_count", [self.lstm_size, self.out_filters - 1]));
+                "w_count", [self.lstm_size, self.out_filters - 1]))
 
       with tf.variable_scope("attention"):
         self.w_attn_1 = tf.get_variable("w_1", [self.lstm_size, self.lstm_size])
@@ -126,8 +126,8 @@ class GeneralController(Controller):
   def _build_sampler(self):
     """Build the sampler ops and the log_prob ops."""
 
-    print "-" * 80
-    print "Build controller sampler"
+    print("-" * 80)
+    print("Build controller sampler")
     anchors = []
     anchors_w_1 = []
 
@@ -295,9 +295,9 @@ class GeneralController(Controller):
         0, dtype=tf.int32, trainable=False, name="train_step")
     tf_variables = [var
         for var in tf.trainable_variables() if var.name.startswith(self.name)]
-    print "-" * 80
+    print("-" * 80)
     for var in tf_variables:
-      print var
+      print(var)
 
     self.train_op, self.lr, self.grad_norm, self.optimizer = get_train_ops(
       self.loss,
@@ -314,4 +314,3 @@ class GeneralController(Controller):
       sync_replicas=self.sync_replicas,
       num_aggregate=self.num_aggregate,
       num_replicas=self.num_replicas)
-

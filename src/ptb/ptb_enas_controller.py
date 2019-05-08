@@ -2,17 +2,16 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import sys
-import os
-import time
-
-import numpy as np
 import tensorflow as tf
 
 from src.utils import get_train_ops
 from src.common_ops import stack_lstm
 
-from tensorflow.python.training import moving_averages
+try:
+    xrange          # Python 2
+except NameError:
+    xrange = range  # Python 3
+
 
 class PTBEnasController(object):
   def __init__(self,
@@ -43,7 +42,7 @@ class PTBEnasController(object):
 
     self.rhn_depth = rhn_depth
     self.lstm_size = lstm_size
-    self.lstm_num_layers = lstm_num_layers 
+    self.lstm_num_layers = lstm_num_layers
     self.lstm_keep_prob = lstm_keep_prob
     self.tanh_constant = tanh_constant
     self.temperature = temperature
@@ -213,4 +212,3 @@ class PTBEnasController(object):
       sync_replicas=self.sync_replicas,
       num_aggregate=self.num_aggregate,
       num_replicas=self.num_replicas)
-

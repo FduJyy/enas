@@ -1,15 +1,14 @@
-import sys
-import os
-import time
-
-import numpy as np
 import tensorflow as tf
 
 from src.controller import Controller
 from src.utils import get_train_ops
 from src.common_ops import stack_lstm
 
-from tensorflow.python.training import moving_averages
+try:
+    xrange          # Python 2
+except NameError:
+    xrange = range  # Python 3
+
 
 class ConvController(Controller):
   def __init__(self,
@@ -36,14 +35,14 @@ class ConvController(Controller):
                num_replicas=None,
                name="controller"):
 
-    print "-" * 80
-    print "Building ConvController"
+    print("-" * 80)
+    print("Building ConvController")
 
     self.num_branches = num_branches
     self.num_layers = num_layers
     self.num_blocks_per_branch = num_blocks_per_branch
     self.lstm_size = lstm_size
-    self.lstm_num_layers = lstm_num_layers 
+    self.lstm_num_layers = lstm_num_layers
     self.lstm_keep_prob = lstm_keep_prob
     self.tanh_constant = tanh_constant
     self.temperature = temperature
@@ -170,9 +169,9 @@ class ConvController(Controller):
     tf_variables = [var for var in tf.trainable_variables()
                     if var.name.startswith(self.name)
                       and "w_critic" not in var.name]
-    print "-" * 80
+    print("-" * 80)
     for var in tf_variables:
-      print var
+      print(var)
     self.train_op, self.lr, self.grad_norm, self.optimizer = get_train_ops(
       self.loss,
       tf_variables,
@@ -191,4 +190,3 @@ class ConvController(Controller):
 
     if self.use_critic:
       self.train_op = tf.group(self.train_op, critic_train_op)
-
