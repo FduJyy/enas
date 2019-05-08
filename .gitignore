@@ -2,7 +2,7 @@ outputs*
 outputs/*
 *.swp
 *.pyc
-
+data/cifar10
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
