@@ -3,6 +3,7 @@
 export PYTHONPATH="$(pwd)"
 
 python src/cifar10/main.py \
+  --gpu_id=$1 \
   --data_format="NCHW" \
   --search_for="macro" \
   --reset_output_dir \

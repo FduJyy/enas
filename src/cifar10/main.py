@@ -36,6 +36,7 @@ DEFINE_string("data_format", "NHWC", "'NHWC' or 'NCWH'")
 DEFINE_string("search_for", None, "Must be [macro|micro]")
 
 DEFINE_integer("batch_size", 32, "")
+DEFINE_integer("gpu_id", 0, "gpu id")
 
 DEFINE_integer("num_epochs", 300, "")
 DEFINE_integer("child_lr_dec_every", 100, "")
@@ -353,7 +354,8 @@ def main(_):
   sys.stdout = Logger(log_file)
 
   utils.print_user_flags()
-  train()
+  with tf.device('gpu:%d'%FLAGS.gpu_id):
+    train()
 
 
 if __name__ == "__main__":

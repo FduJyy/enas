@@ -6,6 +6,7 @@ fixed_arc="0 2 0 0 0 4 0 1 0 4 1 1 1 0 0 1 0 2 1 1"
 fixed_arc="$fixed_arc 1 0 1 0 0 3 0 2 1 1 3 1 1 0 0 4 0 3 1 1"
 
 python src/cifar10/main.py \
+  --gpu_id=$1 \
   --data_format="NCHW" \
   --search_for="micro" \
   --reset_output_dir \
