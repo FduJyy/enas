@@ -3,7 +3,7 @@ from __future__ import division
 from __future__ import print_function
 
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "%d"%FLAGS.gpu_id
+
 import pickle
 import shutil
 import sys
@@ -339,6 +339,7 @@ def train():
 
 
 def main(_):
+  os.environ["CUDA_VISIBLE_DEVICES"] = "%d"%FLAGS.gpu_id
   print("-" * 80)
   if not os.path.isdir(FLAGS.output_dir):
     print("Path {} does not exist. Creating.".format(FLAGS.output_dir))
