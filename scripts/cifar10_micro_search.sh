@@ -8,7 +8,7 @@ python src/cifar10/main.py \
   --search_for="micro" \
   --reset_output_dir \
   --data_path="data/cifar10" \
-  --output_dir="outputs" \
+  --output_dir="outputs$1" \
   --batch_size=160 \
   --num_epochs=150 \
   --log_every=50 \
