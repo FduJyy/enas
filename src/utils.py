@@ -65,8 +65,9 @@ class Logger(object):
     self.log = open(output_file, "a")
 
   def write(self, message):
-    self.terminal.write(message)
-    self.terminal.flush()
+    # self.terminal.write(message)
+    # self.terminal.flush()
+    print(message, flush=True)
     self.log.write(message)
     self.log.flush()
 
