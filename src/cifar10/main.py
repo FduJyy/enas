@@ -219,7 +219,6 @@ def train():
     images, labels = read_data(FLAGS.data_path)
   else:
     images, labels = read_data(FLAGS.data_path, num_valids=0)
-  with tf.device('gpu')
   g = tf.Graph()
   with g.as_default():
     ops = get_ops(images, labels)
