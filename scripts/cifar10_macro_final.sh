@@ -29,6 +29,7 @@ fixed_arc="$fixed_arc 0 1 1 0 0 0 1 1 1 0 1 0 0 0 1 0 1 0 0 1 1 0 0 0"
 
 
 python src/cifar10/main.py \
+  --gpu_id=$1 \
   --data_format="NCHW" \
   --search_for="macro" \
   --reset_output_dir \
