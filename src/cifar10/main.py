@@ -3,6 +3,7 @@ from __future__ import division
 from __future__ import print_function
 
 import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "%d"%FLAGS.gpu_id
 import pickle
 import shutil
 import sys
@@ -218,7 +219,7 @@ def train():
     images, labels = read_data(FLAGS.data_path)
   else:
     images, labels = read_data(FLAGS.data_path, num_valids=0)
-
+  with tf.device('gpu')
   g = tf.Graph()
   with g.as_default():
     ops = get_ops(images, labels)
@@ -354,8 +355,7 @@ def main(_):
   sys.stdout = Logger(log_file)
 
   utils.print_user_flags()
-  with tf.device('gpu:%d'%FLAGS.gpu_id):
-    train()
+  train()
 
 
 if __name__ == "__main__":
