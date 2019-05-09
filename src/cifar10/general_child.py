@@ -411,11 +411,11 @@ class GeneralChild(Model):
       elif count == 4:
         with tf.variable_scope("pool"):
           out = tf.layers.average_pooling2d(
-            inputs, [3, 3], [1, 1], "SAME", data_format=self.data_format)
+            inputs, [3, 3], [1, 1], "SAME", data_format="channels_first")
       elif count == 5:
         with tf.variable_scope("pool"):
           out = tf.layers.max_pooling2d(
-            inputs, [3, 3], [1, 1], "SAME", data_format=self.data_format)
+            inputs, [3, 3], [1, 1], "SAME", data_format="channels_first")
       else:
         raise ValueError("Unknown operation number '{0}'".format(count))
     else:
