@@ -41,7 +41,7 @@ python src/cifar10/main.py \
   --child_fixed_arc="${fixed_arc}" \
   --child_use_aux_heads \
   --child_num_layers=24 \
-  --child_out_filters=96 \
+  --child_out_filters=128 \
   --child_l2_reg=2e-4 \
   --child_num_branches=4 \
   --child_num_cell_layers=5 \
