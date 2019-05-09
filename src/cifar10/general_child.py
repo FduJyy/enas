@@ -409,9 +409,13 @@ class GeneralChild(Model):
                              data_format=self.data_format)
           out = batch_norm(out, is_training, data_format=self.data_format)
       elif count == 4:
-        pass
+        with tf.variable_scope("pool"):
+          out = tf.layers.average_pooling2d(
+            inputs, [3, 3], [1, 1], "SAME", data_format=self.data_format)
       elif count == 5:
-        pass
+        with tf.variable_scope("pool"):
+          out = tf.layers.max_pooling2d(
+            inputs, [3, 3], [1, 1], "SAME", data_format=self.data_format)
       else:
         raise ValueError("Unknown operation number '{0}'".format(count))
     else:
